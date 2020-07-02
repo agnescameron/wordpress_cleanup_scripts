@@ -1,0 +1,24 @@
+start of string:
+
+^\[vc_row\].+\[vc_column_text\]
+
+/^\[vc_row\].+\[vc_column_text\]\n<h1>/gsm
+
+
+end of string:
+
+/<\/div>\n\[\/vc_column_text\].+\[\/vc_row\]$/gsm
+
+
+query:
+
+SELECT * FROM `wp_posts` WHERE `posts_content` REGEXP_LIKE( '^\[vc_row\].+\[vc_column_text\]\n<h1>', mn)
+
+SELECT * FROM `wp_posts` WHERE `post_content` RLIKE '^\[vc_row\].+\[vc_column_text\]\n<h1>' 
+
+
+get all the posts with:
+SELECT * FROM `wp_posts` WHERE `post_content` RLIKE '^\\[vc_row\\].+' 
+
+things inside Cdata getting the end parts
+(\d)\[/vc_column_text\].+\[\/vc_column_text\]\]\]><\/content:encoded>$
