@@ -26,5 +26,6 @@ $xml = preg_replace('/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9
 // and capture groups in single quotes
 $xml = preg_replace('/put_newline_here/m', "\n", $xml);
 $xml = preg_replace('/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/', '', $xml);
+$xml = preg_replace('/<!\[CDATA\]>/', '<![CDATA[]]>', $xml);
 
 fwrite($newXML, $xml);
