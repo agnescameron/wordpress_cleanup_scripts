@@ -19,10 +19,12 @@ $select_start = '/^\[vc_row\].+\[vc_column_text\]\n<h1>/sm';
 $select_end = '/<\/div>\n\[\/vc_column_text\].+\[\/vc_row\]$/sm';
 $select_middle = '/\[\/vc_column_text\]\[vc_column_text\]/sm';
 
-// $xml = preg_replace($select_start, '<h1>', $xml);
-// $xml = preg_replace($select_end, '<\/div>', $xml);
-// $xml = preg_replace($select_middle, '', $xml);
-// $xml = preg_replace('/<\/div>\n\[\/vc_column_text\].+\[vc_column_text\]\n<div/sm', '</div><div',$xml);
+$xml = preg_replace('/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)" image_height="(\d+)"\]/m',
+	'put_newline_here<img class="alignnone size-large" src="\1" height="\2"/>put_newline_here', $xml);
+
+// for some reason best known to the PHP gods, newlines need to be wrapped in double quotes
+// and capture groups in single quotes
+$xml = preg_replace('/put_newline_here/m', "\n", $xml);
 $xml = preg_replace('/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/', '', $xml);
 
 fwrite($newXML, $xml);

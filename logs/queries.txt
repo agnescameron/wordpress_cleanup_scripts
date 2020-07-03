@@ -22,3 +22,7 @@ SELECT * FROM `wp_posts` WHERE `post_content` RLIKE '^\\[vc_row\\].+'
 
 things inside Cdata getting the end parts
 (\d)\[/vc_column_text\].+\[\/vc_column_text\]\]\]><\/content:encoded>$
+
+
+capture groups:
+\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)" image_height="(\d+)"\]
