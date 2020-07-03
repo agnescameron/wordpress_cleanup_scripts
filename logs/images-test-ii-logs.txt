@@ -1,0 +1,51 @@
+Import WordPress
+Failed to create new user for shannon. Their posts will be attributed to the current user.
+Failed to create new user for shannon mattern. Their posts will be attributed to the current user.
+Failed to create new user for Foreign Objects. Their posts will be attributed to the current user.
+Failed to import “wp-graphiql-master.zip”: Invalid post type action_monitor
+Failed to import “wp-graphiql-master.zip”: Invalid post type action_monitor
+Failed to import “wp-graphiql-master.zip”: Invalid post type action_monitor
+Failed to import “you-are-wrong”: Invalid post type action_monitor
+Failed to import “Andrew Cuomo’s COVID-19 Briefings Draw on the Persuasive Authority of PowerPoint”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “gatsby-source-wordpress-experimental-master.zip”: Invalid post type action_monitor
+Failed to import “gatsby-source-wordpress-experimental-master.zip”: Invalid post type action_monitor
+Failed to import “wp-graphql-acf-develop.zip”: Invalid post type action_monitor
+Failed to import “wp-graphql-acf-develop.zip”: Invalid post type action_monitor
+Failed to import “wp-graphql-acf-develop.zip”: Invalid post type action_monitor
+Failed to import “gatsby-source-wordpress-experimental-master.zip”: Invalid post type action_monitor
+Failed to import “dcb717229a4f3b12_large”: Invalid post type action_monitor
+Failed to import “Interfaces Aren't Just Screens (2019)”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “mappingeigg_davidlemm-03”: Invalid post type action_monitor
+Failed to import “New School 2019 Orientation Keynote”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “0jr3mqurv7qehr1ox”: Invalid post type action_monitor
+Failed to import “Sidewalk Labs’s Material Co-Design”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “sidewalk-labs-toronto-neighbourhood-snohetta-thomas-heatherwick_dezeen_2364_col_3”: Invalid post type action_monitor
+Failed to import “Sidewalk's Sidewalk”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “33-772x434”: Invalid post type action_monitor
+Failed to import “The Ethics of Automating Design”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “nickwhite-illustration-int-1crop”: Invalid post type action_monitor
+Failed to import “Full-Professor Review”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “brian_finke_ny_times_int_3”: Invalid post type action_monitor
+Failed to import “Where Does the Time Go?”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “facebookchairs”: Invalid post type action_monitor
+Failed to import “Sharing Is Tables: More Images”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import “shannon”: Invalid post type action_monitor
+Failed to import Media “timeformations2”
+Failed to import Media “harvard-gsd_landscape-infrastructure-symposium_march-23-24-2012_poster-program-s-2”
