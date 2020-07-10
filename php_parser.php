@@ -11,7 +11,8 @@ $xml = file_get_contents($filename);
 $xml = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $xml);
 
 //punctuation
-$xml = preg_replace('/\]\r\n<h1>.+<\/h1>\r\n\[/', '][', $xml);
+$xml = preg_replace('/&#039;/', "'", $xml);
+$xml = preg_replace('/&#034;/', '"', $xml);
 
 //duplicate titles
 $xml = preg_replace('/\]\r\n<h1>.+<\/h1>\r\n\[/', '][', $xml);
