@@ -15,9 +15,7 @@ $string = file_get_contents($filename);
 
 $xml = utf8_for_xml($string);
 
-$select_start = '/^\[vc_row\].+\[vc_column_text\]\n<h1>/sm';
-$select_end = '/<\/div>\n\[\/vc_column_text\].+\[\/vc_row\]$/sm';
-$select_middle = '/\[\/vc_column_text\]\[vc_column_text\]/sm';
+$xml = preg_replace('/\]\r\n<h1>.+<\/h1>\r\n\[/', '][', $xml);
 
 $xml = preg_replace('/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)" image_height="(\d+)"\]/m', 'put_newline_here<img class="alignnone size-large" src="\1" height="\2"/>put_newline_here', $xml);
 
