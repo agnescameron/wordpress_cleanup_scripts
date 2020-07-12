@@ -16,6 +16,7 @@ const not_content = ["zone", "urban", "typology", "zines", "architecture", "work
 
 
 let id_map = [];
+let insert_string = 'INSERT IGNORE INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`) \n VALUES \n';
 //perhaps also posts from last 4 years?
 
 
@@ -40,11 +41,17 @@ wp_terms.forEach(term => {
 	}
 })
 
-console.log(id_map)
+// console.log(id_map)
 
 //if there's a match, then get the id of both the tag and the post
+id_map.forEach(rship => {
+	const insert_statement = `(${rship.object_id}, ${rship.term_taxonomy_id}),\n`;
+	insert_string = insert_string + insert_statement;
+})
 
+insert_string = insert_string.slice(0, -2) + ';'
 
+console.log(insert_string);
 //if those have been found successfully, formulate an insert statement
 
 
