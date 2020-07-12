@@ -10,17 +10,22 @@ const wp_terms = data.filter(table => table.name === 'wp_terms')[0].data;
 const wp_term_taxonomy = data.filter(table => table.name === 'wp_term_relationships')[0].data;
 const wp_term_relationships = data.filter(table => table.name === 'wp_term_taxonomy')[0].data;
 
+const not_searched = ["Main", "Presentations", "Publications"]
+
+//perhaps some terms are so specific as to be included in full text, others just title, others not at all
+
 //for each tag in tag_names
 wp_terms.forEach(term => {
-	wp_posts.forEach(post => {
-		if(post.post_title.includes(term.name)){
-			console.log(post.post_title, term.name)
-		}
-		else if(post.post_content.includes(term.name)){
-			console.log(post.post_title, term.name)
-		}
-
-	})
+	if(!not_searched.includes(term.name)){
+		wp_posts.forEach(post => {
+			if(post.post_title.includes(term.name)){
+				console.log(post.post_title, term.name)
+			}
+			else if(post.post_content.includes(term.name)){
+				console.log(post.post_title, term.name)
+			}
+		})
+	}
 })
 
 // search each 
