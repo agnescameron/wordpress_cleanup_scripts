@@ -11,7 +11,8 @@ const wp_term_relationships = data.filter(table => table.name === 'wp_term_taxon
 
 //perhaps some terms are so specific as to be included in full text, others just title, others not at all
 const not_searched = ["Main", "Presentations", "Publications", "Uncategorized", "Publication", "Research", "Talks", "Teaching", "Blog",]
-const not_content = ["zone", "urban", "typology", "zines", "architecture", "workshop", "urbanism"]
+// const not_content = ["zone", "urban", "typology", "zines", "architecture", "workshop", "urbanism", "mapping", "places", "library"]
+const content = ["paju", "library", "pedagogy", "multimodal scholarship",  "public libraries", "urban media", "pneumatic tubes", "korea", "record-keeping", "senses", "maintenance", "acoustics", "bookmarking", "citizen sensors", "counter-map", "gender", "methodolatry", "placemaking", "textiles", "wikipedia"]
 
 let id_map = [];
 
@@ -40,9 +41,13 @@ wp_terms.forEach(term => {
 				id_map.push(match)
 			}
 			//post_content
-			// else if(post.post_content.includes(term.name) && !not_content.includes(term.name)){
-			// 	console.log(post.post_title, term.name)
-			// }
+			else if(post.post_content.toLowerCase().includes(term.name) && content.includes(term.name)){
+				const match = {
+					object_id: post.ID,
+					term_taxonomy_id: term.term_id,
+				}
+				id_map.push(match)
+			}
 		})
 	}
 })

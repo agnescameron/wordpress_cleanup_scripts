@@ -15,7 +15,8 @@ $xml = preg_replace('/&#039;/', "'", $xml);
 $xml = preg_replace('/&#034;/', '"', $xml);
 
 //duplicate titles
-$xml = preg_replace('/\]\r\n<h1>.+<\/h1>\r\n\[/', '][', $xml);
+$xml = preg_replace('/\]\r\n<h1>.+<\/h1>\r\n\[/m', '][', $xml);
+$xml = preg_replace('/\]\r\n<h1\sclass=".+">.+<\/h1>\r\n\[/m', '][', $xml);
 
 //capture images (size specified) from the [][] plugin
 $xml = preg_replace('/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)" image_height="(\d+)"\]/m', 'put_newline_here<img class="alignnone size-large" src="\1" height="\2"/>put_newline_here', $xml);
@@ -32,5 +33,7 @@ $xml = preg_replace('/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/', '', $xml);
 
 //clean up uneven brackets where too much was deleted
 $xml = preg_replace('/<!\[CDATA\]>/', '<![CDATA[]]>', $xml);
+
+$xml = preg_replace("/<!\[CDATA\[\n<h1>.+<\/h1>/", '<![CDATA[', $xml);
 
 fwrite($newXML, $xml);

@@ -1,3 +1,4 @@
 *.xml
+*.txt
 .DS_Store
 database_dump.json
