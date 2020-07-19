@@ -34,6 +34,10 @@ $xml = preg_replace('/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/', '', $xml);
 //clean up uneven brackets where too much was deleted
 $xml = preg_replace('/<!\[CDATA\]>/', '<![CDATA[]]>', $xml);
 
+// final removal of duplicate titles
 $xml = preg_replace("/<!\[CDATA\[\n<h1>.+<\/h1>/", '<![CDATA[', $xml);
+
+// rewrite bad paths
+$xml = preg_replace('/\.\.\.\//', "https://wordsinspace.net/shannon/", $xml);
 
 fwrite($newXML, $xml);
