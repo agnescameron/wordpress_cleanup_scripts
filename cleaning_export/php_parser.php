@@ -10,6 +10,8 @@ $xml = file_get_contents($filename);
 //goodbye gross unicode characters (this step required to prevent import bugs)
 $xml = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $xml);
 
+$xml = preg_replace('/\]"</', ']put_newline_here"<', $xml);
+
 //punctuation
 $xml = preg_replace('/&#039;/', "'", $xml);
 $xml = preg_replace('/&#034;/', '"', $xml);
@@ -36,6 +38,8 @@ $xml = preg_replace('/<!\[CDATA\]>/', '<![CDATA[]]>', $xml);
 
 // final removal of duplicate titles
 $xml = preg_replace("/<!\[CDATA\[\n<h1>.+<\/h1>/", '<![CDATA[', $xml);
+$xml = preg_replace("/\.jpg\">\n\n<h1>.+<\/h1>/", '.jpg">', $xml);
+$xml = preg_replace("/\.png\">\n\n<h1>.+<\/h1>/", '.png">', $xml);
 
 // rewrite bad paths
 $xml = preg_replace('/\.\.\.\//', "https://wordsinspace.net/shannon/", $xml);

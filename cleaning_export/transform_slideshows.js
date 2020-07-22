@@ -16,7 +16,7 @@ async function matchImgs (matchArr, data) {
   		let entry = json.data.filter(post => post.ID === img)
   		if(entry.length){
   			urls.push(entry[0].guid)
-  			replaceString = replaceString + `<img src="${entry[0].guid}">\n`
+  			replaceString = replaceString + `<img class='fromSlideshow' src="${entry[0].guid}">\n`
   			i++;
   		}
   		else {
