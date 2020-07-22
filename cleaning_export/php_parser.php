@@ -4,7 +4,7 @@
 $newXML = fopen("php_cleaned.xml", "w") or die("Unable to open file!");
 
 libxml_use_internal_errors(true);
-$filename = 'export_not_clean.xml';
+$filename = 'js_cleaned.xml';
 $xml = file_get_contents($filename);
 
 //goodbye gross unicode characters (this step required to prevent import bugs)
