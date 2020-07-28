@@ -10,7 +10,11 @@ $xml = file_get_contents($filename);
 //goodbye gross unicode characters (this step required to prevent import bugs)
 $xml = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $xml);
 
+//rewrite image urls (temporary)
+$xml = preg_replace('/localhost:8888\/wp-content\//', 'wordsinspace.net/shannon/wp-content', $xml);
+
 $xml = preg_replace('/\]"</', ']put_newline_here"<', $xml);
+$xml = preg_replace('/\]“</', ']put_newline_here”<', $xml);
 
 //punctuation
 $xml = preg_replace('/&#039;/', "'", $xml);
@@ -43,5 +47,8 @@ $xml = preg_replace("/\.png\">\n\n<h1>.+<\/h1>/", '.png">', $xml);
 
 // rewrite bad paths
 $xml = preg_replace('/\.\.\.\//', "https://wordsinspace.net/shannon/", $xml);
+
+//weird, single, xml error
+$xml = preg_replace('/>\]><\/content:encoded>/', '>]]></content:encoded>', $xml);
 
 fwrite($newXML, $xml);

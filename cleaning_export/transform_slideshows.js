@@ -32,7 +32,6 @@ async function matchImgs (matchArr, data) {
   		let entry = xmlPosts.filter(post => post['wp:post_id'][0] === img)
   		if(entry.length){
   			urls.push(entry[0].guid[0]['_'])
-        console.log(img, "success!!")
   			replaceString = replaceString + `<img class='fromSlideshow' src="${entry[0].guid[0]['_']}">\n`
   			i++;
   		}
