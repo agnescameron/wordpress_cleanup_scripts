@@ -2,3 +2,4 @@
 *.txt
 .DS_Store
 database_dump.json
+wp_*.json

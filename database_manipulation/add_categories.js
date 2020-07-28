@@ -10,7 +10,7 @@ const wp_term_taxonomy = data.filter(table => table.name === 'wp_term_relationsh
 const wp_term_relationships = data.filter(table => table.name === 'wp_term_taxonomy')[0].data;
 
 let post_ids = [];
-let blog_term_id = 319;
+let blog_term_id = 2;
 
 //insert ignore doesn't insert duplicates
 let insert_string = 'INSERT IGNORE INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`) VALUES ';

@@ -1,5 +1,8 @@
 //in export not clean, get each of the slideshow elements
-fs = require('fs')
+const fs = require('fs')
+var parseString = require('xml2js').parseString;
+
+
 const json = require('./wp_posts_local.json');
 let i=0;
 let j=0;
@@ -7,19 +10,34 @@ let j=0;
 
 async function matchImgs (matchArr, data) {
 	let urlArr = [];
+  let xmlData;
+
+  await parseString(data, function(err, result){
+    console.log('success!')
+    xmlData = result;
+  });
+
+  console.log(xmlData.rss.channel[0].item[0].guid[0]['_'])
+  const xmlPosts = xmlData.rss.channel[0].item;
+
+  for await (const post of xmlPosts) {
+    console.log(post['wp:post_id'][0])
+  }
 
   for await (const el of matchArr) {
   	const imgs = el.replace(/"/g, '').split(',')
   	let urls = [];
   	let replaceString = '';
   	imgs.forEach(img => {
-  		let entry = json.data.filter(post => post.ID === img)
+  		let entry = xmlPosts.filter(post => post['wp:post_id'][0] === img)
   		if(entry.length){
-  			urls.push(entry[0].guid)
-  			replaceString = replaceString + `<img class='fromSlideshow' src="${entry[0].guid}">\n`
+  			urls.push(entry[0].guid[0]['_'])
+        console.log(img, "success!!")
+  			replaceString = replaceString + `<img class='fromSlideshow' src="${entry[0].guid[0]['_']}">\n`
   			i++;
   		}
   		else {
+        console.log(img, "is null")
   			urls.push(null)
   		}
   		j++
