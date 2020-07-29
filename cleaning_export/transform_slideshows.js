@@ -17,15 +17,10 @@ async function matchImgs (matchArr, data) {
     xmlData = result;
   });
 
-  console.log(xmlData.rss.channel[0].item[0].guid[0]['_'])
   const xmlPosts = xmlData.rss.channel[0].item;
 
-  for await (const post of xmlPosts) {
-    console.log(post['wp:post_id'][0])
-  }
-
   for await (const el of matchArr) {
-  	const imgs = el.replace(/"/g, '').split(',')
+  	const imgs = el.split(',')
   	let urls = [];
   	let replaceString = '';
   	imgs.forEach(img => {
@@ -42,7 +37,7 @@ async function matchImgs (matchArr, data) {
   		j++
   	})
   	urlArr.push(urls);
-  	data = data.replace(el, '"]\n' + replaceString + '[vc_')
+  	data = data.replace(`"${el}"`, '"]\n' + replaceString + '[vc_')
   }
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
@@ -50,13 +45,19 @@ async function matchImgs (matchArr, data) {
 }
 
 //log the numbers in groups
-const pattern = /\[mk_image_slideshow images="(\d+),"|"(\d+),(\d+)"|"(\d+),(\d+),(\d+)"/g;
+const pattern = /\[mk_image_slideshow images="([\d+,]{1,})"/g;
 
 fs.readFile('export_not_clean.xml', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
-  const matchArr = [...data.match(pattern)]
+
+  var matches, matchArr = [];
+  while (matches = pattern.exec(data)) {
+      matchArr.push(matches[1]);
+  }
+
   matchImgs(matchArr, data);
+  console.log(matchArr)
 });
 
