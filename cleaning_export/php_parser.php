@@ -11,7 +11,7 @@ $xml = file_get_contents($filename);
 $xml = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $xml);
 
 //rewrite image urls (temporary)
-$xml = preg_replace('/localhost:8888\/wp-content\//', 'wordsinspace.net/shannon/wp-content', $xml);
+// $xml = preg_replace('/localhost:8888\/wp-content\//', 'localhost:8888/wordpress_x/wp-content/', $xml);
 
 $xml = preg_replace('/\]"</', ']put_newline_here"<', $xml);
 $xml = preg_replace('/\]“</', ']put_newline_here”<', $xml);

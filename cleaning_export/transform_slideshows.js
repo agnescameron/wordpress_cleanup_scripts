@@ -4,9 +4,6 @@ var parseString = require('xml2js').parseString;
 
 
 const json = require('./wp_posts_local.json');
-let i=0;
-let j=0;
-
 
 async function matchImgs (matchArr, data) {
 	let urlArr = [];
@@ -23,21 +20,19 @@ async function matchImgs (matchArr, data) {
   	const imgs = el.split(',')
   	let urls = [];
   	let replaceString = '';
-  	imgs.forEach(img => {
+  	imgs.forEach( (img, index) => {
   		let entry = xmlPosts.filter(post => post['wp:post_id'][0] === img)
   		if(entry.length){
   			urls.push(entry[0].guid[0]['_'])
-  			replaceString = replaceString + `<img class='fromSlideshow' src="${entry[0].guid[0]['_']}">\n`
-  			i++;
+  			replaceString = replaceString + `<img id='slideshowImg${index}' class='fromSlideshow' src="${entry[0].guid[0]['_'].replace(/localhost:8888\/wp-content\/uploads\/2017\/07\//, 'localhost:8888/wordpress_xi/wp-content/uploads/2017/07/')}">\n`
   		}
   		else {
         console.log(img, "is null")
   			urls.push(null)
   		}
-  		j++
   	})
   	urlArr.push(urls);
-  	data = data.replace(`"${el}"`, '"]\n' + replaceString + '[vc_')
+  	data = data.replace(`"${el}"`, '"]\n<div class="slideshow">\n' + replaceString + '</div>\n[vc_')
   }
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
