@@ -42,7 +42,7 @@ async function matchImgs (matchArr, data) {
 //log the numbers in groups
 const pattern = /\[mk_image_slideshow images="([\d+,]{1,})"/g;
 
-fs.readFile('export_not_clean.xml', 'utf8', function (err,data) {
+fs.readFile('export_ii.xml', 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
