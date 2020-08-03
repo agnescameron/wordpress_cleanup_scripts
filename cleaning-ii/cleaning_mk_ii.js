@@ -34,6 +34,11 @@ async function matchImgs (matchArr, data) {
     xmlData = result;
   });
 
+  //get rid of the headings first
+  data = await data.replace(/\]\r\n<h1.+<\/h1>\r\n/gm, ']');
+  data = await data.replace(/\]\n<h1.+<\/h1>\n/gm, ']');
+  data = await data.replace('<h1>Mapping Urban Media Infrastructures (2019)</h1>', '');
+
   const xmlPosts = xmlData.rss.channel[0].item;
 
   for await (const el of matchArr) {
@@ -66,7 +71,7 @@ async function matchImgs (matchArr, data) {
   //cleaning up
   data = await data.replace(/\]"</gm, ']\n"<');
   data = await data.replace(/\]“</gm, ']\n“<');
-  data = await data.replace(/\]\r\n<h1>.+<\/h1>\r\n\[/gm, '][');
+  data = await data.replace(/\]([^\[^\]^>])/g, ']\n$1');
   data = await data.replace(/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/gm, '');
 
   fs.writeFile("js_cleaned.xml", data, function (err) {
