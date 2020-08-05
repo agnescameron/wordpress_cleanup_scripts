@@ -5,24 +5,7 @@ const formatXml = require("xml-formatter");
 var jsonxml = require('jsontoxml');
 
 // const json = require('./wp_posts_local.json');
-const prefix = 'http://wordsinspace.net/shannon'
-
-
-async function transformPosts(xmlData){
-  console.log('cleaning posts')
-  for await (const post of xmlData.rss.channel[0].item) {
-    // console.log(post['content:encoded'])
-    post['content:encoded'][0] = post['content:encoded'][0].replace(/\]"<|\]“</, '\n');
-    post['content:encoded'][0] = post['content:encoded'][0].replace(/\]\n<h1>.+<\/h1>\n\[/m, '][');
-    post['content:encoded'][0] = post['content:encoded'][0].replace(/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/, '');
-
-  // await data.replace(/\]"<|\]“</, '\n');
-  // await data.replace(/\]\n<h1>.+<\/h1>\n\[/m, '][');
-
-  }
-
-  return xmlData;
-}
+const prefix = 'http://wordsinspace.net/shannon';
 
 
 async function matchImgs (matchArr, data) {
@@ -34,7 +17,7 @@ async function matchImgs (matchArr, data) {
     xmlData = result;
   });
 
-  //get rid of the headings first
+  // //get rid of the headings first
   data = await data.replace(/\]\r\n<h1.+<\/h1>\r\n/gm, ']');
   data = await data.replace(/\]\n<h1.+<\/h1>\n/gm, ']');
   data = await data.replace('<h1>Mapping Urban Media Infrastructures (2019)</h1>', '');
@@ -58,21 +41,41 @@ async function matchImgs (matchArr, data) {
   		}
   	})
   	urlArr.push(urls);
-  	data = data.replace(`"${el}"`, `"]\n<!-- wp:gallery {"ids":[${imgs}]} -->\n` + replaceString + '<!-- /wp:gallery -->\n[vc_')
+  	data = data.replace(`"${el}"`,`"]\n<!-- wp:gallery {"ids":[${imgs}]} -->\n` + replaceString + '<!-- /wp:gallery -->\n[vc_')
+    //`"]\n ${replaceString}\n[vc_'`) //
   }
 
   // matching images not in slideshows
 
-//capture images (size specified) from the [][] plugin
+// //capture images (size specified) from the [][] plugin
   data = await data.replace(/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)" image_height="(\d+)"\]/gm, '\n<img class="alignnone size-large" src="$1" height="$2"/>\n');
   data = await data.replace(/\[mk_image src="([A-Za-z]+:\/\/[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_:%&;\?\#\/.=]+)"\]/gm, '\n<img class="alignnone size-large" src="$1"/>\n');
 
 
-  //cleaning up
+  // //cleaning up
   data = await data.replace(/\]"</gm, ']\n"<');
   data = await data.replace(/\]“</gm, ']\n“<');
   data = await data.replace(/\]([^\[^\]^>])/g, ']\n$1');
   data = await data.replace(/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/gm, '');
+
+
+  data = await data.replace(/<h1/gm, '<h2');
+  data = await data.replace(/<\/h1>/gm, '<\/h2>');
+
+  //getting rid of span coloyrs
+  data = await data.replace(/style="color: #\d\d\d\d\d\d/g, 'class="colorEmphasis"');
+
+  //getting rid of spans
+  // data = await data.replace(/<span.[^>]+>|<\/span>/, '');
+
+  data = await data.replace(/<!\[CDATA\]>/g, '<![CDATA[]]>');
+
+  //punctuation
+  data = await data.replace(/&#039;/g, "'");
+  data = await data.replace(/&#034;/g, '"');
+
+// rewrite bad paths
+  data = await data.replace(/\.\.\.\/\d+\/\d+\/\d+\//g, "http://localhost:8888/");
 
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
