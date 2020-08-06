@@ -62,7 +62,7 @@ async function matchImgs (matchArr, data) {
   data = await data.replace(/<h1/gm, '<h2');
   data = await data.replace(/<\/h1>/gm, '<\/h2>');
 
-  //getting rid of span coloyrs
+  //getting rid of span colours
   data = await data.replace(/style="color: #\d\d\d\d\d\d/g, 'class="colorEmphasis"');
 
   //getting rid of spans
@@ -79,6 +79,10 @@ async function matchImgs (matchArr, data) {
 
   // unicode something
   data = await data.replace(/[^\u{0009}\u{000a}\u{000d}\u{0020}-\u{D7FF}\u{E000}-\u{FFFD}]+/ug, '')
+
+  //getting rid of weird portfolio divs
+  data = await data.replace(/(<div class=".+">\n){6,}/, '<p>')
+  data = await data.replace(/(<\/div>\n){6,}/g, '</p>')
 
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
