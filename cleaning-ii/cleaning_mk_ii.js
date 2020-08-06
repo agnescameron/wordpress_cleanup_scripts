@@ -75,7 +75,10 @@ async function matchImgs (matchArr, data) {
   data = await data.replace(/&#034;/g, '"');
 
 // rewrite bad paths
-  data = await data.replace(/\.\.\.\/\d+\/\d+\/\d+\//g, "http://localhost:8888/");
+  data = await data.replace(/\.\.\.\//g, "http://localhost:8888/"); ///\.\.\.\/\d+\/\d+\/\d+\//g
+
+  // unicode something
+  data = await data.replace(/[^\u{0009}\u{000a}\u{000d}\u{0020}-\u{D7FF}\u{E000}-\u{FFFD}]+/ug, '')
 
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
