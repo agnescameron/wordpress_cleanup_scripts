@@ -33,7 +33,7 @@ async function matchImgs (matchArr, data) {
   		if(entry.length){
   			urls.push(entry[0].guid[0]['_'])
         url = entry[0].guid[0]['_'].replace(/http:\/\/localhost:8888\/wp-content\/uploads\//, `${prefix}/wp-content/uploads/`)
-  			replaceString = replaceString + `<img id='slideshowImg${index}' data-id="${img}" data-full-url="${url}" data-link="${prefix}/?attachment_id=${img}" class='wp-image-${img}' src="${url}">\n`
+  			replaceString = replaceString + `<li class="blocks-gallery-item"><figure><img id='slideshowImg${index}' data-id="${img}" data-full-url="${url}" data-link="${prefix}/?attachment_id=${img}" class='wp-image-${img}' src="${url}"/></figure></li>\n`
   		}
   		else {
         console.log(img, "is null")
@@ -41,7 +41,8 @@ async function matchImgs (matchArr, data) {
   		}
   	})
   	urlArr.push(urls);
-  	data = data.replace(`"${el}"`,`"]\n<!-- wp:gallery {"ids":[${imgs}]} -->\n` + replaceString + '<!-- /wp:gallery -->\n[vc_')
+  	data = data.replace(`"${el}"`,`"]\n<!-- wp:gallery {"ids":[${imgs}]} -->\n<figure class="wp-block-gallery columns-3 is-cropped">\n
+  <ul class="blocks-gallery-grid">\n` + replaceString + '</ul></figure><!-- /wp:gallery -->\n[vc_')
     //`"]\n ${replaceString}\n[vc_'`) //
   }
 
@@ -55,7 +56,7 @@ async function matchImgs (matchArr, data) {
   // //cleaning up
   data = await data.replace(/\]"</gm, ']\n"<');
   data = await data.replace(/\]“</gm, ']\n“<');
-  data = await data.replace(/\]([^\[^\]^>])/g, ']\n$1');
+  data = await data.replace(/[t"]\]([^\[^\]^>])/g, ']\n$1');
   data = await data.replace(/\[vc_.+[^\]]\]|\[\/vc_.+[^\]]\]/gm, '');
 
 
@@ -81,8 +82,17 @@ async function matchImgs (matchArr, data) {
   data = await data.replace(/[^\u{0009}\u{000a}\u{000d}\u{0020}-\u{D7FF}\u{E000}-\u{FFFD}]+/ug, '')
 
   //getting rid of weird portfolio divs
-  data = await data.replace(/(<div class=".+">\n){6,}/, '<p>')
+  data = await data.replace(/(<div class=".+">\n){6,}/g, '<p>')
   data = await data.replace(/(<\/div>\n){6,}/g, '</p>')
+
+  //bolded, coloured, and indented text
+  data = await data.replace(/style="font-weight[^>]+padding[^>]+;"/g, 'class="indented emphasised"');
+  data = await data.replace(/style="font-weight[^>]+;"/g, 'class="emphasised"');
+  data = await data.replace(/style="font-weight[^>]+;"/g, 'class="emphasised"');
+  data = await data.replace(/style="color[^>]+;"/g, 'class="indented"');
+
+  data = await data.replace(/style="[\sml][^>]+;"/g, '')
+  data = await data.replace(/style="font-weight[^>]+;"/g, '')
 
   fs.writeFile("js_cleaned.xml", data, function (err) {
   if (err) return console.log(err);
