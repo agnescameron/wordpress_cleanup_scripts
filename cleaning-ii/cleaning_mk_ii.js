@@ -73,6 +73,7 @@ async function matchImgs (matchArr, data) {
 
   //punctuation
   data = await data.replace(/&#039;/g, "'");
+  data = await data.replace(/&#038;/g, "");
   data = await data.replace(/&#034;/g, '"');
 
 // rewrite bad paths
